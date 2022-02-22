@@ -2,7 +2,7 @@
 
 # list of Conventional Commits types
 cc_types=("feat" "fix")
-default_types=("build" "chore" "ci" "docs" "${cc_types[@]}" "perf" "refactor" "revert" "style" "test")
+default_types=("build" "chore" "ci" "docs" "${cc_types[@]}" "perf" "refactor" "revert" "style" "test" "wip")
 types=( "${cc_types[@]}" )
 
 if [ $# -eq 1 ]; then
