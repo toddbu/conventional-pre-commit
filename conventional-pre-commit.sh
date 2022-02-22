@@ -24,10 +24,12 @@ r_types="($(IFS='|'; echo "${types[*]}"))"
 r_scope="(\([[:alnum:] \/-]+\))?"
 # optional breaking change indicator and colon delimiter
 r_delim='!?:'
+# Jira ticket #
+r_jira=' [[:upper:]]+-[[:digit:]]+'
 # subject line, body, footer
 r_subject=" [[:alnum:]].+"
 # the full regex pattern
-pattern="^$r_types$r_scope$r_delim$r_subject$"
+pattern="^$r_types$r_scope$r_jira$r_delim$r_subject$"
 
 # Check if commit is conventional commit
 if grep -Eq "$pattern" "$msg_file"; then
@@ -36,24 +38,24 @@ fi
 
 echo "[Commit message] $( cat "$msg_file" )"
 echo "
-Your commit message does not follow Conventional Commits formatting
+Your commit message does not follow Conventional Commits + Jira formatting
 https://www.conventionalcommits.org/
 
-Conventional Commits start with one of the below types, followed by a colon,
-followed by the commit message:
+Conventional Commits + Jira starts with one of the below types, followed by a colon,
+followed by the Jira ticket number, followed by the commit message:
 
     $(IFS=' '; echo "${types[*]}")
 
 Example commit message adding a feature:
 
-    feat: implement new API
+    feat: ABC-123 implement new API
 
 Example commit message fixing an issue:
 
-    fix: remove infinite loop
+    fix: ABC-123 remove infinite loop
 
 Optionally, include a scope in parentheses after the type for more context:
 
-    fix(account): remove infinite loop
+    fix(account): ABC-123 remove infinite loop
 "
 exit 1
